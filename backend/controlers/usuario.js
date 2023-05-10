@@ -52,3 +52,27 @@ exports.createusuario = async (req, res) => {
     res.status(400).json({ message: error.message });
   }
 };
+
+exports.login = async (req, res) => {
+  try {
+    const { email, senha } = req.body;
+    console.log(email, senha)
+    // Verifica se o e-mail existe no banco de dados
+    const usuario = await usuarioModel.findOne({ email, senha });
+    console.log(usuario)
+
+    if (!usuario) {
+      return res.status(400).json({ message: 'E-mail ou senha inválidos' });
+    }
+
+    // Verifica se a senha é válida
+   
+
+    const token = jwt.sign({ id: usuario._id }, secretKey);
+
+    res.status(200).json({ message: 'Logado', token });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
