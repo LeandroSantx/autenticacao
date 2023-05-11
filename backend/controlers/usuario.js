@@ -76,3 +76,25 @@ exports.login = async (req, res) => {
   }
 };
 
+exports.ValidaUser = async (req, res) => {
+
+  const UserFront = req.body
+  const UserBd =  await usuarioModel.findOne({email: req.body.email,senha: req.body.senha});
+  if(!UserBd){
+      res.status(401).send("Credenciais invalidas")
+  }else{
+      const token = UserBd.token;
+
+      jwt.verify(token, secretKey, (err, decodedToken) => {
+          if (err) {
+            return res.status(401).json({ message: 'Invalid token' });
+          } else {               
+                  res.status(201).send("Validado1");
+              
+          }
+        });    
+  }
+  
+  
+}
+

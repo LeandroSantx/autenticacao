@@ -13,7 +13,7 @@ function Login(){
     event.preventDefault();
     console.log(email, senha) 
     
-    axios.post('http://localhost:5000/apiusuario/login', {
+    axios.post('http://localhost:5000/apiusuario/user', {
       email,
       senha
     })
