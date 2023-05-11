@@ -2,8 +2,9 @@ import React, { useState } from 'react';
 import { Container, Row, Nav, Button, Col, Form } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import './styles.css'; // importe o arquivo CSS
 
-function Cadastro(){
+function Cadastro() {
   const [formData, setFormData] = useState({
     email: '',
     nome: '',
@@ -22,36 +23,47 @@ function Cadastro(){
     event.preventDefault();
 
     try {
-      const response = await axios.post('http://localhost:5000/apiusuario', formData);
+      const teste = formData.nrsec = '123';
+      const response = await axios.post('http://localhost:5000/apiusuario', formData, teste);
       console.log(response.data);
       alert('inserido!');
+      setFormData({ // definir o estado inicial do formData
+        email: '',
+        nome: '',
+        senha: '',
+        nrsec: ''
+      });
     } catch (error) {
       console.error(error);
     }
   };
 
-  return(
-    <div className="container">
-      <h1>Formulário de Cadastro</h1>
-      <form onSubmit={handleSubmit}>
-        <div className="form-group">
-          <label htmlFor="nome">Nome:</label>
-          <input type="text" id="nome" name="nome" value={formData.nome} onChange={handleChange} required/>
+  return (
+    <div id="login">
+      <div className="card">
+        <div className="card-header">
+          <h1>Cadastre-se</h1>
         </div>
-        <div className="form-group">
-          <label htmlFor="email">Email:</label>
-          <input type="email" id="email" name="email" value={formData.email} onChange={handleChange} required/>
+        <div className="card-content">
+          <form onSubmit={handleSubmit}>
+            <div className="card-content-area">
+              <label htmlFor="nome">Nome:</label>
+              <input type="text" id="nome" name="nome" value={formData.nome} onChange={handleChange} required />
+            </div>
+            <div className="card-content-area">
+              <label htmlFor="email">Email:</label>
+              <input type="email" id="email" name="email" value={formData.email} onChange={handleChange} required />
+            </div>
+            <div className="card-content-area">
+              <label htmlFor="senha">Senha:</label>
+              <input type="password" id="senha" name="senha" value={formData.senha} onChange={handleChange} required />
+            </div>
+            <div className="card-footer">
+              <button type="submit" className="submit">Cadastrar</button>
+            </div>
+          </form>
         </div>
-        <div className="form-group">
-          <label htmlFor="senha">Senha:</label>
-          <input type="password" id="senha" name="senha" value={formData.senha} onChange={handleChange} required/>
-        </div>
-        <div className="form-group">
-          <label htmlFor="nrsec">Número de segurança:</label>
-          <input type="text" id="nrsec" name="nrsec" value={formData.nrsec} onChange={handleChange} required/>
-        </div>
-        <button type="submit" className="submit-btn">Cadastrar</button>
-      </form>
+      </div>
     </div>
   );
 }

@@ -24,7 +24,7 @@ function Login(){
         setSenha('');
       }
     })
-    .catch(error => console.log(error))
+    .catch(error => console.log(error), alert('senha ou email inválidos!'))
   }
   return(
     
@@ -35,7 +35,7 @@ function Login(){
 
                 <form class="box-login" method="post" action="#"  onSubmit={handleSubmit}>
                     <input type="email" id="email" class="campo" name="email" placeholder="E-mail" value={email} onChange={e => setEmail(e.target.value)} required/>
-                    <input type="text" id="password" class="campo" name="senha" placeholder="Senha"  value={senha} onChange={e => setSenha(e.target.value)} required />
+                    <input type="password" id="password" class="campo" name="senha" placeholder="Senha"  value={senha} onChange={e => setSenha(e.target.value)} required />
                     <input type="submit" class="botao" value="Entrar"/>
                 </form>
                 <div class="box-lembrar-senha">  
