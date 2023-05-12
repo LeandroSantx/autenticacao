@@ -3,6 +3,7 @@ import { Container, Row, Nav, Button, Col, Form } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import './styles.css'; // importe o arquivo CSS
+import usuarioService from '../services/serviceUsuario';
 
 function Cadastro() {
   const [formData, setFormData] = useState({
@@ -24,15 +25,18 @@ function Cadastro() {
 
     try {
       const teste = formData.nrsec = '123';
-      const response = await axios.post('http://localhost:5000/apiusuario', formData, teste);
-      console.log(response.data);
+
+      await usuarioService.postUsuario(formData, teste);
+
       alert('inserido!');
+
       setFormData({ // definir o estado inicial do formData
         email: '',
         nome: '',
         senha: '',
         nrsec: ''
       });
+
     } catch (error) {
       console.error(error);
     }
